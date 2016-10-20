@@ -1,4 +1,4 @@
-def pv(payment: float, rate: float, periods: float) -> float:
+def pv(payment, rate, periods):
     payment = float(payment)
     rate = float(rate)
     periods = float(periods)
@@ -8,7 +8,7 @@ def pv(payment: float, rate: float, periods: float) -> float:
     factor = numerator / denominator
     return payment * factor
 
-def fv(payment: float, rate: float, periods: float) -> float:
+def fv(payment, rate, periods):
     payment = float(payment)
     rate = float(rate)
     periods = float(periods)
