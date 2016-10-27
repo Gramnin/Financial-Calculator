@@ -23,11 +23,23 @@ def get_value(func):
     periods = input("Number of periods: ")
     out = func(payment, rate, periods)
     print("%.4f" % out)
+    return True
 
 if __name__ == '__main__':
-    from menu_utils import menu_loop
+    import menu
     
-    menu_loop([
-        (1, "Present Value", get_value, pv),
-        (2, "Future Value", get_value, fv),
-    ])
+    mainmenu = menu.Menu("Select a calculation: ")
+    mainmenu.add_option({
+        "title": "Present Value",
+        "function": get_value,
+        "arguments": [pv],
+    })
+    mainmenu.add_option({
+        "title": "Future Value",
+        "function": get_value,
+        "arguments": [fv],
+    })
+    
+    valid = True
+    while valid:
+        valid = mainmenu.run()
