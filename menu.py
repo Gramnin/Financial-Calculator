@@ -1,4 +1,8 @@
 class Menu (object):
+    r"""
+    A basic menu module
+    """
+    
     _keys = ["title", "function"]
     
     def __init__(self, title, options=[], prompt="> "):
@@ -7,6 +11,17 @@ class Menu (object):
         self.prompt = prompt
     
     def add_option(self, option):
+        r"""
+        Append a new option
+        
+        Raises TypeError on invalid options
+        
+        Options must be a dict with the following keys:
+        'title' is the name of the option (required)
+        'function' is the function to run if selected (required)
+        'arguments' is a list of the arguments to pass to the called function (optional)
+        'keyword arguments' is a dict of the arguments to pass to the called function (optional)
+        """
         for key in self._keys:
             if key not in option:
                 raise TypeError("Key '%s' missing in option %d" % (key, i))
@@ -15,10 +30,18 @@ class Menu (object):
     
     @property
     def options(self):
+        r"""
+        The list of option items
+        """
         return self._options[:]
     
     @options.setter
     def options(self, options):
+        r"""
+        Set options and answers
+        
+        Raises TypeError on invalid options
+        """
         for i, item in enumerate(options):
             for key in self._keys:
                 if key not in item:
@@ -34,11 +57,19 @@ class Menu (object):
     
     @property
     def answers(self):
+        r"""
+        A map of numbers to options
+        """
         a = {}
         a.update(self._answers)
         return a
     
     def run(self, raiseinterrupt=False):
+        r"""
+        Run the menu once
+        
+        prompt until KeyboardInterrupt or number of valid option
+        """
         print()
         print(self.title)
         print()
@@ -63,6 +94,9 @@ class Menu (object):
     __call__ = run
     
     def runloop(self):
+        r"""
+        Run the menu until keyboard interrupt
+        """
         while True:
             try:
                 self.run(raiseinterrupt=True)
