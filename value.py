@@ -23,7 +23,6 @@ def get_value(func):
     periods = input("Number of periods: ")
     out = func(payment, rate, periods)
     print("%.4f" % out)
-    return True
 
 if __name__ == '__main__':
     import menu
@@ -40,6 +39,4 @@ if __name__ == '__main__':
         "arguments": [fv],
     })
     
-    valid = True
-    while valid:
-        valid = mainmenu.run()
+    valid = mainmenu.runloop()

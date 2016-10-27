@@ -4,7 +4,7 @@ class Menu (object):
     def __init__(self, title, options=[], prompt="> "):
         self.title = title
         self.options = options
-        self.prompt = "> "
+        self.prompt = prompt
     
     def add_option(self, option):
         for key in self._keys:
@@ -38,7 +38,7 @@ class Menu (object):
         a.update(self._answers)
         return a
     
-    def run(self):
+    def run(self, raiseinterrupt=False):
         print()
         print(self.title)
         print()
@@ -51,8 +51,20 @@ class Menu (object):
             try:
                 answer = input(self.prompt)
             except KeyboardInterrupt:
-                return
+                if raiseinterrupt:
+                    raise
+                else:
+                    return
         answer = self.answers[answer]
         args = answer.get("arguments", [])
         kwargs = answer.get("keyword arguments", {})
         return answer["function"](*args, **kwargs)
+    
+    __call__ = run
+    
+    def runloop(self):
+        while True:
+            try:
+                self.run(raiseinterrupt=True)
+            except KeyboardInterrupt:
+                break
