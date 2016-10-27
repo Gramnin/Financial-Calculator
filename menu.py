@@ -1,8 +1,14 @@
+import sys
+
 class Menu (object):
     r"""
     A basic menu module
     """
     
+    if sys.version_info[0] == 2:
+        input = raw_input
+    else:
+        input = input
     _keys = ["title", "function"]
     
     def __init__(self, title, options=[], prompt="> "):
@@ -70,9 +76,9 @@ class Menu (object):
         
         prompt until KeyboardInterrupt or number of valid option
         """
-        print()
+        print("")
         print(self.title)
-        print()
+        print("")
         width = len(self.options) + 1
         width = len(str(width))
         for i, item in enumerate(self.options):
@@ -80,7 +86,7 @@ class Menu (object):
         answer = None
         while answer not in self.answers:
             try:
-                answer = input(self.prompt)
+                answer = self.input(self.prompt)
             except KeyboardInterrupt:
                 if raiseinterrupt:
                     raise
